@@ -11,7 +11,7 @@
             <canvas ref="canvasRef" class="fixed top-0 left-0"></canvas>
         </div>
 
-        <div :class="cn('relative z-10', props.class)">
+        <div :class="cn('relative z-10 size-full', props.class)">
             <slot/>
         </div>
     </div>

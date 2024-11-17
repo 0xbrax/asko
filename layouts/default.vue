@@ -4,7 +4,7 @@
         :particle-count="500"
         :range-speed="0.5"
     >
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 h-full">
             <AppHeader/>
             <slot/>
         </div>

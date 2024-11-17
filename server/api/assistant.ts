@@ -4,6 +4,8 @@ const openai = new OpenAI();
 
 let cachedThread: any = null;
 const getThread = async () => {
+    //cachedThread = await openai.beta.threads.create();
+
     if (!cachedThread) {
         cachedThread = await openai.beta.threads.create();
     }
@@ -39,7 +41,7 @@ export default defineEventHandler(async (event) => {
             const messages = await openai.beta.threads.messages.list(
                 run.thread_id
             );
-            return {messages: messages.data};
+            return {data: messages.data};
         } else {
             return {error: `Failed to fetch GPT response, status: ${run.status}`};
         }

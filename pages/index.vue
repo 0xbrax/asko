@@ -1,45 +1,57 @@
 <template>
-    <div>
-        <h1>Home</h1>
-        <NuxtLink to="/chat">About page</NuxtLink>
+    <div id="home" class="h-full pt-16 pb-4 flex flex-col justify-between gap-8">
+        <div class="text-center">
+            <h2 class="mb-2 text-xl md:text-5xl">
+                Ask anything about
+                <UiTextHighlight
+                    class="bg-gradient-to-r from-primary to-secondary p-2"
+                    text-end-color="oklch(var(--pc))"
+                    :delay="1000"
+                >
+                    Basecamp - Getting Real
+                </UiTextHighlight>
+            </h2>
+            <p class="text-sm md:text-2xl">The smarter, faster, easier way to build a successful web
+                application</p>
+        </div>
+
+
+        <div class="grow overflow-y-auto relative">
+            <LucideTrash class="sticky top-0 left-1/2 translate-x-1/2"/>
+
+            <div
+                v-for="(message, index) in messages"
+                :key="index"
+                :ref="index === messages.length - 1 ? (el) => lastMessageRefs.push(el) : null"
+            >
+                <div v-if="message.role === 'assistant'" class="chat chat-start">
+                    <div class="chat-bubble whitespace-pre-wrap">{{ message.text }}</div>
+                </div>
+
+                <div v-if="message.role === 'user'" class="chat chat-end">
+                    <div class="chat-bubble whitespace-pre-wrap">{{ message.text }}</div>
+                </div>
+            </div>
+        </div>
 
 
         <div>
-            <h2 class="mb-2 text-center text-xl md:text-5xl">
-                Ask anything about "Basecamp - Getting Real"
-            </h2>
-            <p class="mb-16 text-center md:text-2xl">The smarter, faster, easier way to build a successful web
-                application</p>
-
-
-            <div>
-                <div class="chat chat-start">
-                    <div class="chat-bubble">
-                        It's over Anakin,
-                        <br/>
-                        I have the high ground.
-                    </div>
-                </div>
-                <div class="chat chat-end">
-                    <div class="chat-bubble">You underestimate my power!</div>
-                </div>
-            </div>
-
-            <span @click="sendPrompt">
-                TEST
-            </span>
-
-
             <UiVanishingInput
-                v-model="text"
+                v-model="prompt"
                 :placeholders="placeholders"
                 fxColor="#a6adbb"
+                @submit="sendPrompt"
             />
         </div>
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import {LucideTrash} from "lucide-vue-next";
+
+const prompt = ref('');
+const messages = ref([]);
+
 const placeholders = [
     "Why is my code always broken?",
     "What does 'undefined' even mean?",
@@ -47,35 +59,51 @@ const placeholders = [
     "Am I smarter than a compiler?",
     "Do loops ever get dizzy?",
 ];
-const text = ref("");
 
-
-import {ref} from 'vue';
-
-const prompt = ref('What are the best practices for simplifying a project according to \'Basecamp - Getting Real\'?');
-const response = ref('');
-const error = ref('');
+const lastMessageRefs = ref([]);
 
 const sendPrompt = async () => {
     try {
-        const {data, error: fetchError}: any = await useFetch('/api/assistant', {
+        const {data, error} = await $fetch('/api/assistant', {
             method: 'POST',
             body: {prompt: prompt.value},
         });
 
-        if (fetchError.value) {
-            throw new Error(fetchError.value.message);
+        if (error) {
+            throw new Error(error.message);
         }
 
-        console.log('RESPONSE', data.value.messages)
+        console.log('RESPONSE LENGTH', data.length)
 
-        for (const message of data.value.messages.reverse()) {
+        const temp = [];
+        for (const message of data.reverse()) {
+            console.log('- - - - - - - MESSAGGIO - - - - - - - - - - -')
+
             console.log(`${message.role} > ${message.content[0].text.value}`);
+
+            const obj = {
+                role: message.role,
+                text: message.content[0].text.value
+            };
+            temp.push(obj);
         }
-    } catch (err) {
-        console.error(err);
+        messages.value = temp;
+    } catch (error) {
+        console.error(error);
     } finally {
         //
     }
 };
+
+
+watch(
+    () => messages.value.length,
+    async () => {
+        await nextTick();
+
+        console.log('LOG - -  - -', lastMessageRefs.value)
+
+        lastMessageRefs.value[lastMessageRefs.value.length - 1].scrollIntoView({behavior: 'smooth'});
+    }
+);
 </script>
