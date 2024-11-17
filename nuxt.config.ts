@@ -12,5 +12,13 @@ export default defineNuxtConfig({
     app: {
         pageTransition: {name: 'page', mode: 'out-in'}
     },
-    ssr: false
+    ssr: false,
+    runtimeConfig: {
+        openaiApiKey: process.env.OPENAI_API_KEY,
+        openaiCustomAssistantId: process.env.OPENAI_CUSTOM_ASSISTANT_ID,
+
+        public: {
+            //siteName: process.env.NUXT_PUBLIC_SITE_NAME,
+        },
+    },
 })

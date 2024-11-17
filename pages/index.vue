@@ -25,6 +25,10 @@
                 </div>
             </div>
 
+            <span @click="sendPrompt">
+                TEST
+            </span>
+
 
             <UiVanishingInput
                 v-model="text"
@@ -44,4 +48,34 @@ const placeholders = [
     "Do loops ever get dizzy?",
 ];
 const text = ref("");
+
+
+import {ref} from 'vue';
+
+const prompt = ref('What are the best practices for simplifying a project according to \'Basecamp - Getting Real\'?');
+const response = ref('');
+const error = ref('');
+
+const sendPrompt = async () => {
+    try {
+        const {data, error: fetchError}: any = await useFetch('/api/assistant', {
+            method: 'POST',
+            body: {prompt: prompt.value},
+        });
+
+        if (fetchError.value) {
+            throw new Error(fetchError.value.message);
+        }
+
+        console.log('RESPONSE', data.value.messages)
+
+        for (const message of data.value.messages.reverse()) {
+            console.log(`${message.role} > ${message.content[0].text.value}`);
+        }
+    } catch (err) {
+        console.error(err);
+    } finally {
+        //
+    }
+};
 </script>
