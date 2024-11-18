@@ -21,7 +21,4 @@ export default defineNuxtConfig({
             //varName: process.env.NUXT_PUBLIC_VAR_NAME,
         },
     },
-    /*nitro: {
-        preset: 'vercel'
-    }*/
 })
