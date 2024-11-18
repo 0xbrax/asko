@@ -21,4 +21,11 @@ export default defineNuxtConfig({
             //varName: process.env.NUXT_PUBLIC_VAR_NAME,
         },
     },
+    nitro: {
+        vercel: {
+            functions: {
+                maxDuration: 60,
+            },
+        },
+    },
 })
