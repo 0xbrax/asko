@@ -4,8 +4,6 @@ const openai = new OpenAI();
 
 let cachedThread: any = null;
 const getThread = async () => {
-    //cachedThread = await openai.beta.threads.create();
-
     if (!cachedThread) {
         cachedThread = await openai.beta.threads.create();
     }
@@ -21,6 +19,9 @@ export default defineEventHandler(async (event) => {
     }
 
     try {
+        if (body.needsReset) {
+            cachedThread = null;
+        }
         const thread = await getThread();
 
         const message = await openai.beta.threads.messages.create(

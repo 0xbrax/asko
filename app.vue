@@ -15,6 +15,17 @@
     opacity: 0;
     filter: blur(1rem);
 }
+
+
+.fade-enter-active,
+.fade-leave-active,
+.fade-out-leave-active {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to,
+.fade-out-leave-to {
+    opacity: 0;
+}
 </style>
-<script setup lang="ts">
-</script>

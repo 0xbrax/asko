@@ -1,6 +1,6 @@
 <template>
     <form
-        class="relative mx-auto h-12 w-full max-w-xl overflow-hidden bg-base-100 rounded-full shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200"
+        class="relative h-12 w-full max-w-xl overflow-hidden bg-base-100 rounded-full shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200"
         @submit.prevent="handleSubmit"
     >
         <!-- Canvas Element -->

@@ -18,7 +18,7 @@ export default defineNuxtConfig({
         openaiCustomAssistantId: process.env.OPENAI_CUSTOM_ASSISTANT_ID,
 
         public: {
-            //siteName: process.env.NUXT_PUBLIC_SITE_NAME,
+            //varName: process.env.NUXT_PUBLIC_VAR_NAME,
         },
     },
 })
