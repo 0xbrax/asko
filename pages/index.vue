@@ -72,11 +72,11 @@ import {LucideTrash} from "lucide-vue-next";
 
 
 const placeholders = [
-    `Write 1-page report summarising key points and how they can be applied`
-        `What are the best practices for simplifying a project?`,
-    `How should a team structure itself to maximize productivity?`
-        `What is the guiding principle for building a minimalist product?`
-        `What strategies does the book recommend for handling client feedback?`
+    `Write 1-page report summarising key points and how they can be applied`,
+    `What are the best practices for simplifying a project?`,
+    `How should a team structure itself to maximize productivity?`,
+    `What is the guiding principle for building a minimalist product?`,
+    `What strategies does the book recommend for handling client feedback?`,
 ];
 
 const prompt = ref('');
