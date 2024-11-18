@@ -16,7 +16,7 @@
         </div>
 
 
-        <div class="grow overflow-y-auto relative mx-auto w-full md:w-3/4 p-2 bg-accent/10 rounded">
+        <div class="grow overflow-y-auto relative mx-auto w-full md:w-3/4 p-2 bg-accent/10 backdrop-blur-sm rounded">
             <LucideTrash
                 v-if="messages.length"
                 @click="resetThread"
